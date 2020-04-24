@@ -5,12 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -19,23 +15,18 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Accessors(chain = true)
-@Document(collection = "agency")
+@Entity
+@Accessors(chain=true)
 public class Agency {
     @Id
-    private String id;
-
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String code;
-
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String name;
-
     private String details;
-
-    @DBRef(lazy = true)
+    @OneToOne
     private User owner;
-
-    @DBRef(lazy = true)
+    @OneToMany(targetEntity=Bus.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="id", referencedColumnName = "id")
     private Set<Bus> buses;
 }

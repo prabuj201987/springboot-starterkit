@@ -4,14 +4,14 @@ import com.starterkit.springboot.brs.model.bus.Agency;
 import com.starterkit.springboot.brs.model.bus.Bus;
 import com.starterkit.springboot.brs.model.bus.Stop;
 import com.starterkit.springboot.brs.model.bus.Trip;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 /**
  * Created by Arpit Khandelwal.
  */
-public interface TripRepository extends MongoRepository<Trip, String> {
+public interface TripRepository extends JpaRepository<Trip, Integer> {
     Trip findBySourceStopAndDestStopAndBus(Stop source, Stop destination, Bus bus);
 
     List<Trip> findAllBySourceStopAndDestStop(Stop source, Stop destination);

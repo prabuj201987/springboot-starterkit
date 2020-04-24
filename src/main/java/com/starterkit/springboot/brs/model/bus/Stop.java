@@ -4,10 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Created by Arpit Khandelwal.
@@ -15,13 +16,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 @Setter
 @NoArgsConstructor
-@Accessors(chain = true)
-@Document(collection = "stop")
+@Entity
+@Accessors(chain=true)
 public class Stop {
     @Id
-    private String id;
-
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String code;
 
     private String name;

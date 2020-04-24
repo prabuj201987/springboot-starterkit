@@ -95,7 +95,7 @@ public class BusReservationServiceImpl implements BusReservationService {
             if (agency.isPresent()) {
                 return modelMapper.map(agency.get(), AgencyDto.class);
             }
-            throw exceptionWithId(AGENCY, ENTITY_NOT_FOUND, "2", user.getEmail());
+            throw exceptionWithId(AGENCY, ENTITY_NOT_FOUND, 2, user.getEmail());
         }
         throw exception(USER, ENTITY_NOT_FOUND, userDto.getEmail());
     }
@@ -151,7 +151,7 @@ public class BusReservationServiceImpl implements BusReservationService {
                     agency.getBuses().add(busModel);
                     return modelMapper.map(agencyRepository.save(agency), AgencyDto.class);
                 }
-                throw exceptionWithId(BUS, DUPLICATE_ENTITY, "2", busDto.getCode(), agencyDto.getCode());
+                throw exceptionWithId(BUS, DUPLICATE_ENTITY, 2, busDto.getCode(), agencyDto.getCode());
             } else {
                 //update agency details case
                 agency.setName(agencyDto.getName())
@@ -159,7 +159,7 @@ public class BusReservationServiceImpl implements BusReservationService {
                 return modelMapper.map(agencyRepository.save(agency), AgencyDto.class);
             }
         }
-        throw exceptionWithId(AGENCY, ENTITY_NOT_FOUND, "2", agencyDto.getOwner().getEmail());
+        throw exceptionWithId(AGENCY, ENTITY_NOT_FOUND, 2, agencyDto.getOwner().getEmail());
     }
 
     /**
@@ -169,12 +169,12 @@ public class BusReservationServiceImpl implements BusReservationService {
      * @return
      */
     @Override
-    public TripDto getTripById(String tripID) {
+    public TripDto getTripById(Integer tripID) {
         Optional<Trip> trip = tripRepository.findById(tripID);
         if (trip.isPresent()) {
             return TripMapper.toTripDto(trip.get());
         }
-        throw exception(TRIP, ENTITY_NOT_FOUND, tripID);
+        throw exception(TRIP, ENTITY_NOT_FOUND, tripID.toString());
     }
 
     /**
@@ -316,11 +316,11 @@ public class BusReservationServiceImpl implements BusReservationService {
                             .setAvailableSeats(trip.get().getBus().getCapacity());
                     return TripScheduleMapper.toTripScheduleDto(tripScheduleRepository.save(tripSchedule1));
                 } else {
-                    throw exceptionWithId(TRIP, ENTITY_NOT_FOUND, "2", tripDto.getId(), tripDate);
+                    throw exceptionWithId(TRIP, ENTITY_NOT_FOUND, 2, tripDto.getId().toString(), tripDate);
                 }
             }
         }
-        throw exception(TRIP, ENTITY_NOT_FOUND, tripDto.getId());
+        throw exception(TRIP, ENTITY_NOT_FOUND, tripDto.getId().toString());
     }
 
     /**
@@ -348,7 +348,7 @@ public class BusReservationServiceImpl implements BusReservationService {
                 tripScheduleRepository.save(tripSchedule.get());//update schedule
                 return TicketMapper.toTicketDto(ticket);
             }
-            throw exceptionWithId(TRIP, ENTITY_NOT_FOUND, "2", tripScheduleDto.getTripId(), tripScheduleDto.getTripDate());
+            throw exceptionWithId(TRIP, ENTITY_NOT_FOUND, 2, tripScheduleDto.getTripId().toString(), tripScheduleDto.getTripDate());
         }
         throw exception(USER, ENTITY_NOT_FOUND, userDto.getEmail());
     }
@@ -438,7 +438,7 @@ public class BusReservationServiceImpl implements BusReservationService {
      * @param args
      * @return
      */
-    private RuntimeException exceptionWithId(EntityType entityType, ExceptionType exceptionType, String id, String... args) {
+    private RuntimeException exceptionWithId(EntityType entityType, ExceptionType exceptionType, Integer id, String... args) {
         return BRSException.throwExceptionWithId(entityType, exceptionType, id, args);
     }
 }

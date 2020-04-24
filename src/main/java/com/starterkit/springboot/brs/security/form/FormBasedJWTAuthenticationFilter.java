@@ -38,6 +38,7 @@ public class FormBasedJWTAuthenticationFilter extends UsernamePasswordAuthentica
         String password = req.getParameter("password");
         if (email != null && password != null) {
             User user = new User().setEmail(email).setPassword(password);
+            //User user = User.builder().email(email).password(password).build();
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             user.getEmail(),

@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TicketDto {
-    private String id;
+    private Integer id;
 
     private String busCode;
 

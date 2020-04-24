@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TripDto {
 
-    private String id;
+    private Integer id;
 
     private int fare;
 

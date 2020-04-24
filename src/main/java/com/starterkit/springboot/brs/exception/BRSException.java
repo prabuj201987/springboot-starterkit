@@ -54,8 +54,8 @@ public class BRSException {
      * @param args
      * @return
      */
-    public static RuntimeException throwExceptionWithId(EntityType entityType, ExceptionType exceptionType, String id, String... args) {
-        String messageTemplate = getMessageTemplate(entityType, exceptionType).concat(".").concat(id);
+    public static RuntimeException throwExceptionWithId(EntityType entityType, ExceptionType exceptionType, Integer id, String... args) {
+        String messageTemplate = getMessageTemplate(entityType, exceptionType).concat(".").concat(id.toString());
         return throwException(exceptionType, messageTemplate, args);
     }
 

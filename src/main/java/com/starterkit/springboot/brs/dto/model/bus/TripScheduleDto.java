@@ -21,9 +21,9 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TripScheduleDto {
 
-    private String id;
+    private Integer id;
 
-    private String tripId;
+    private Integer tripId;
 
     private String tripDate;
 

@@ -24,7 +24,7 @@ public interface BusReservationService {
     AgencyDto updateAgency(AgencyDto agencyDto, BusDto busDto);
 
     //Trip related methods
-    TripDto getTripById(String tripID);
+    TripDto getTripById(Integer tripID);
 
     List<TripDto> addTrip(TripDto tripDto);
 

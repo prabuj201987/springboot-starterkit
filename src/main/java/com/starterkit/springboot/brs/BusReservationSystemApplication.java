@@ -104,47 +104,47 @@ public class BusReservationSystemApplication {
                         .setOwner(admin);
                 agencyRepository.save(agencyA);
             }
-
-            //Create a bus
-            Bus busA = busRepository.findByCode("AGENCYA-1");
-            if (busA == null) {
-                busA = new Bus()
-                        .setCode("AGENCYA-1")
-                        .setAgency(agencyA)
-                        .setCapacity(60);
-                busRepository.save(busA);
-            }
-
-            //Add busA to set of buses owned by Agency 'AGENCYA'
-            if (agencyA.getBuses() == null) {
-                Set<Bus> buses = new HashSet<>();
-                agencyA.setBuses(buses);
-                agencyA.getBuses().add(busA);
-                agencyRepository.save(agencyA);
-            }
-
-            //Create a Trip
-            Trip trip = tripRepository.findBySourceStopAndDestStopAndBus(stopA, stopB, busA);
-            if (trip == null) {
-                trip = new Trip()
-                        .setSourceStop(stopA)
-                        .setDestStop(stopB)
-                        .setBus(busA)
-                        .setAgency(agencyA)
-                        .setFare(100)
-                        .setJourneyTime(60);
-                tripRepository.save(trip);
-            }
-
-            //Create a trip schedule
-            TripSchedule tripSchedule = tripScheduleRepository.findByTripDetailAndTripDate(trip, DateUtils.todayStr());
-            if (tripSchedule == null) {
-                tripSchedule = new TripSchedule()
-                        .setTripDetail(trip)
-                        .setTripDate(DateUtils.todayStr())
-                        .setAvailableSeats(trip.getBus().getCapacity());
-                tripScheduleRepository.save(tripSchedule);
-            }
+//
+//            //Create a bus
+//            Bus busA = busRepository.findByCode("AGENCYA-1");
+//            if (busA == null) {
+//                busA = new Bus()
+//                        .setCode("AGENCYA-1")
+//                        .setAgency(agencyA)
+//                        .setCapacity(60);
+//                busRepository.save(busA);
+//            }
+//
+//            //Add busA to set of buses owned by Agency 'AGENCYA'
+//            if (agencyA.getBuses() == null) {
+//                Set<Bus> buses = new HashSet<>();
+//                agencyA.setBuses(buses);
+//                agencyA.getBuses().add(busA);
+//                agencyRepository.save(agencyA);
+//            }
+//
+//            //Create a Trip
+//            Trip trip = tripRepository.findBySourceStopAndDestStopAndBus(stopA, stopB, busA);
+//            if (trip == null) {
+//                trip = new Trip()
+//                        .setSourceStop(stopA)
+//                        .setDestStop(stopB)
+//                        .setBus(busA)
+//                        .setAgency(agencyA)
+//                        .setFare(100)
+//                        .setJourneyTime(60);
+//                tripRepository.save(trip);
+//            }
+//
+//            //Create a trip schedule
+//            TripSchedule tripSchedule = tripScheduleRepository.findByTripDetailAndTripDate(trip, DateUtils.todayStr());
+//            if (tripSchedule == null) {
+//                tripSchedule = new TripSchedule()
+//                        .setTripDetail(trip)
+//                        .setTripDate(DateUtils.todayStr())
+//                        .setAvailableSeats(trip.getBus().getCapacity());
+//                tripScheduleRepository.save(tripSchedule);
+//            }
         };
     }
 }

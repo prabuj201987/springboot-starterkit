@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -16,19 +14,17 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Accessors(chain = true)
-@Document(collection = "tripschedule")
+@Entity
+@Accessors(chain=true)
 public class TripSchedule {
     @Id
-    private String id;
-
-    @DBRef
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(unique = true)
     private Trip tripDetail;
-
-    @DBRef(lazy = true)
+    @OneToMany(targetEntity=Ticket.class, fetch=FetchType.EAGER)
     private List<Ticket> ticketsSold;
-
     private String tripDate;
-
     private int availableSeats;
 }

@@ -1,9 +1,8 @@
 package com.starterkit.springboot.brs.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,15 +21,15 @@ import javax.validation.constraints.NotNull;
  */
 @RestController
 @RequestMapping("/api")
-@Api(value="brs-application", description="Operations pertaining to user login and logout in the BRS application")
+@Tag(name="brs-application", description="Operations pertaining to user login and logout in the BRS application")
 public class FakeController {
-    @ApiOperation("Login")
+    @Operation(summary = "Login")
     @PostMapping("/auth")
     public void fakeLogin(@RequestBody @Valid LoginRequest loginRequest) {
         throw new IllegalStateException("This method shouldn't be called. It's implemented by Spring Security filters.");
     }
 
-    @ApiOperation("Logout")
+    @Operation(summary = "Logout")
     @PostMapping("/logout")
     public void fakeLogout() {
         throw new IllegalStateException("This method shouldn't be called. It's implemented by Spring Security filters.");
